@@ -1,22 +1,27 @@
 #! /usr/bin/env node
 
+// sqlite3 is sync, not async (specifically better-sqlite3)
+// in contrast to async with postgres server
+// this applies to all sqlite related operations in this template
+
+
 // node will ignore shebang line if manually running
 // (so not in terminal)
 // remember it needs to be very first line
-require("dotenv").config();
 
-const { Client } = require("pg");
-const DB_USER = process.env.DB_USER;
-const DB_PASSWORD = process.env.DB_PASSWORD;
+const Database = require('better-sqlite3');
+const db = new Database('db/top_users.db');
 
+// Drop table if exists (SQLite syntax)
 const SQLDrop = `
-DROP TABLE usernames;
+DROP TABLE IF EXISTS usernames;
 `;
 
+// Create table and insert values (SQLite syntax)
 const SQL = `
 CREATE TABLE IF NOT EXISTS usernames (
-  id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  username VARCHAR ( 255 )
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT
 );
 
 INSERT INTO usernames (username) 
@@ -26,15 +31,11 @@ VALUES
   ('Damon');
 `;
 
-async function seed() {
+function seed() {
   console.log("seeding...");
-  const client = new Client({
-    connectionString: `postgresql://${DB_USER}:${DB_PASSWORD}@localhost:5432/top_users`,
-  });
-  await client.connect();
-  await client.query(SQLDrop)
-  await client.query(SQL);
-  await client.end();
+  db.exec(SQLDrop);
+  db.exec(SQL);
+  db.close();
   console.log("done");
 }
 

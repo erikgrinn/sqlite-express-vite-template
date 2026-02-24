@@ -1,15 +1,17 @@
-const pool = require("./pool");
+const Database = require('better-sqlite3');
+const db = new Database('db/top_users.db');
 
-async function getAllUsernames() {
-  const { rows } = await pool.query("SELECT * FROM usernames");
-  return rows;
+function getUsernames() {
+  const stmt = db.prepare("SELECT * FROM usernames");
+  return stmt.all();
 }
 
-// async function insertUsername(username) {
-//   await pool.query("INSERT INTO usernames (username) VALUES ($1)", [username]);
+// function insertUsername(username) {
+//   const stmt = db.prepare("INSERT INTO usernames (username) VALUES (?)");
+//   stmt.run(username);
 // }
 
 module.exports = {
-  getAllUsernames,
-//   insertUsername
+  getUsernames,
+  // insertUsername
 };
