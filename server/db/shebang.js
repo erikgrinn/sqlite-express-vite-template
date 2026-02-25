@@ -3,6 +3,7 @@
 // sqlite3 is sync, not async (specifically better-sqlite3)
 // in contrast to async with postgres server
 // this applies to all sqlite related operations in this template
+// no need for pool file (outside of shebang context)
 
 
 // node will ignore shebang line if manually running
