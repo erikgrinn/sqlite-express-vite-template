@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 // import styles from "../styles/App.module.css";
 
-function App() {
+function HomePage() {
   const [fetchedData, setFetchedData] = useState("");
 
   useEffect(() => {
@@ -26,4 +26,4 @@ function App() {
   return <div>{fetchedData}</div>;
 }
 
-export default App;
+export default HomePage;
