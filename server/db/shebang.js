@@ -28,9 +28,8 @@ VALUES
 
 function seed() {
   console.log("seeding...");
-  // to log GET requests/ SELECT queries, undefined for others (normal)
   const result = db.exec(SQL);
-  console.log(result);
+  console.log(result.rows); // undefined for all but SELECT
   db.close();
   console.log("done");
 }
