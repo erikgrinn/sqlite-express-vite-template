@@ -1,9 +1,9 @@
 const path = require("node:path");
 const { Router } = require("express");
-const { getUsernames } = require("../controllers/myController");
+const { simpleGet } = require("../controllers/myController");
 
 const myRouter = Router();
 
-myRouter.get("/", getUsernames)
+myRouter.get("/", simpleGet)
 
 module.exports = myRouter;

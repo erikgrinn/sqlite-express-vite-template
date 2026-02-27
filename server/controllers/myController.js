@@ -1,11 +1,15 @@
 const db = require("../db/queries");
 const path = require("node:path");
 
-function getUsernames(req, res) {
-  const usernames = db.getUsernames();
-  console.log("Usernames: ", usernames);
-  res.send("Usernames: " + usernames.map((user) => user.username).join(", "));
+function simpleGet(req, res) {
+  res.json("Hello");
 }
+
+// function getUsernames(req, res) {
+//   const usernames = db.getUsernames();
+//   console.log("Usernames: ", usernames);
+//   res.send("Usernames: " + usernames.map((user) => user.username).join(", "));
+// }
 
 // function createUsernameGet(req, res) {
 //   res.sendFile(path.join(__dirname, "../form.html"));
@@ -18,7 +22,8 @@ function getUsernames(req, res) {
 // }
 
 module.exports = {
-  getUsernames,
-//   createUsernameGet,
-//   createUsernamePost,
+  simpleGet
+  // getUsernames,
+  //   createUsernameGet,
+  //   createUsernamePost,
 };
