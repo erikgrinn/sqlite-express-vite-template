@@ -5,18 +5,12 @@
 // this applies to all sqlite related operations in this template
 // no need for pool file (outside of shebang context)
 
-
 // node will ignore shebang line if manually running
 // (so not in terminal)
 // remember it needs to be very first line
 
-const Database = require('better-sqlite3');
-const db = new Database('db/top_users.db');
-
-// Drop table if exists (SQLite syntax)
-const SQLDrop = `
-DROP TABLE IF EXISTS usernames;
-`;
+const Database = require("better-sqlite3");
+const db = new Database("db/top_users.db");
 
 // Create table and insert values (SQLite syntax)
 const SQL = `
@@ -34,8 +28,9 @@ VALUES
 
 function seed() {
   console.log("seeding...");
-  db.exec(SQLDrop);
-  db.exec(SQL);
+  // to log GET requests/ SELECT queries, undefined for others (normal)
+  const result = db.exec(SQL);
+  console.log(result);
   db.close();
   console.log("done");
 }
